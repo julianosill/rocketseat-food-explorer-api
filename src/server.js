@@ -4,17 +4,19 @@ require('express-async-errors')
 const cors = require('cors')
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const routes = require('./routes')
 const AppError = require('./utils/AppError')
 
 const api = express()
 api.use(express.json())
-api.use(cookieParser)
+api.use(cookieParser())
 api.use(
   cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 )
+api.use(routes)
 
 api.use((error, req, res, next) => {
   if (error instanceof AppError) {
