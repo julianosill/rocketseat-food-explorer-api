@@ -6,8 +6,7 @@ class ProductCreateService {
   }
 
   async execute(requestData) {
-    const { name, description, category, ingredients, price, image } =
-      requestData
+    const { name, description, category, ingredients, price } = requestData
 
     if (!name) {
       throw new AppError('product/name-is-missing')
@@ -34,16 +33,16 @@ class ProductCreateService {
       throw new AppError('product/name-already-exists')
     }
 
-    const productData = {
+    const product = {
       name,
       description,
       category,
       price,
     }
 
-    await this.productsRepository.create(productData)
+    const productCreated = await this.productsRepository.create(product)
 
-    return productData
+    return productCreated
   }
 }
 
