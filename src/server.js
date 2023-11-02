@@ -1,21 +1,24 @@
 require('dotenv').config()
 require('express-async-errors')
 
-const cors = require('cors')
 const express = require('express')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const { UPLOADS_FOLDER } = require('./configs/upload')
 const routes = require('./routes')
 const AppError = require('./utils/AppError')
 
 const api = express()
 api.use(express.json())
 api.use(cookieParser())
+
 api.use(
   cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 )
+api.use('/images', express.static(UPLOADS_FOLDER))
 api.use(routes)
 
 api.use((error, req, res, next) => {
