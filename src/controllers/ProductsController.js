@@ -2,18 +2,27 @@ const ProductsRepository = require('../repositories/ProductsRepository')
 const ProductCreateService = require('../services/ProductCreateService')
 const ProductUpdateService = require('../services/ProductUpdateService')
 const ProductDeleteService = require('../services/ProductDeleteService')
-
-const IngredientsRepository = require('../repositories/IngredientsRepository')
-const IngredientCreateService = require('../services/IngredientCreateService')
+const ImageDeleteService = require('../services/ImageDeleteService')
 
 class ProductsController {
   async create(request, response) {
-    const { name, description, category, price, ingredients } = request.body
-    const productData = { name, description, category, price, ingredients }
+    const product = request.body
+    const imageFile = request.file
 
     const productsRepository = new ProductsRepository()
     const productCreateService = new ProductCreateService(productsRepository)
-    const [product_id] = await productCreateService.execute(productData)
+    await productCreateService.execute({ product, imageFile })
+
+    return response.status(201).json({ message: 'product-created' })
+  }
+
+  async update(request, response) {
+    const { id } = request.params
+    const product = request.body
+
+    const productsRepository = new ProductsRepository()
+    const productUpdateService = new ProductUpdateService(productsRepository)
+    const [product_id] = await productUpdateService.execute({ id, product })
 
     const ingredientsRepository = new IngredientsRepository()
     const ingredientCreateService = new IngredientCreateService(
@@ -21,23 +30,19 @@ class ProductsController {
     )
     await ingredientCreateService.execute({ ingredients, product_id })
 
-    return response.status(201).json({ message: 'product-created' })
-  }
-
-  async update(request, response) {
-    const { id } = request.params
-    const updateData = request.body
-    const productsRepository = new ProductsRepository()
-    const productUpdateService = new ProductUpdateService(productsRepository)
-    await productUpdateService.execute({ id, updateData })
     return response.status(201).json({ message: 'product-updated' })
   }
 
   async delete(request, response) {
     const { id } = request.params
     const productsRepository = new ProductsRepository()
+
+    const imageDeleteService = new ImageDeleteService(productsRepository)
     const productDeleteService = new ProductDeleteService(productsRepository)
+
+    await imageDeleteService.execute({ id })
     await productDeleteService.execute({ id })
+
     return response.status(201).json({ message: 'product-deleted' })
   }
 }
