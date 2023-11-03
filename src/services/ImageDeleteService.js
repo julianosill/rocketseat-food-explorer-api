@@ -14,9 +14,7 @@ class ImageDeleteService {
       throw new AppError('product/product-not-found')
     }
 
-    const imageDeleted = await diskStorage.deleteFile(product.image)
-
-    return imageDeleted
+    return await diskStorage.deleteFile(product.image)
   }
 }
 

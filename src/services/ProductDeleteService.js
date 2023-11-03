@@ -12,9 +12,7 @@ class ProductDeleteService {
       throw new AppError('product/product-not-found')
     }
 
-    await this.productsRepository.delete({ id })
-
-    return product
+    return await this.productsRepository.delete({ id })
   }
 }
 
