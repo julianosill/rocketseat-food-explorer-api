@@ -13,15 +13,13 @@ class ProductsRepository {
     return product
   }
 
-  async create(productData) {
-    const newProduct = await knex(tableName).insert(productData)
-    return newProduct
+  async create(product) {
+    const productCreated = await knex(tableName).insert(product)
+    return productCreated
   }
 
-  async update({ id, productData }) {
-    const productUpdated = await knex(tableName)
-      .where({ id })
-      .update(productData)
+  async update({ id, product }) {
+    const productUpdated = await knex(tableName).where({ id }).update(product)
     return productUpdated
   }
 
