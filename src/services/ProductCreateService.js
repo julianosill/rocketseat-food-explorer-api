@@ -6,7 +6,7 @@ class ProductCreateService {
   }
 
   async execute(product) {
-    const { name, description, category, price } = product
+    const { name, description, category, ingredients, price } = product
 
     const requiredColumns = {
       name: 'product/name-is-missing',
@@ -20,6 +20,10 @@ class ProductCreateService {
       if (!product[column]) {
         throw new AppError(requiredColumns[column])
       }
+    }
+
+    if (ingredients.length <= 0) {
+      throw new AppError('product/ingredients-is-empty')
     }
 
     const nameExists = await this.productsRepository.findByName(product.name)
