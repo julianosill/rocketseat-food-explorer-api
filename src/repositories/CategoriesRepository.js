@@ -13,6 +13,11 @@ class CategoriesRepository {
     return category
   }
 
+  async index() {
+    const categories = await knex(tableName).orderBy('name')
+    return categories
+  }
+
   async create(categoryData) {
     return await knex(tableName).insert(categoryData)
   }
