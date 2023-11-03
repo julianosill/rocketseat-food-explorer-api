@@ -13,20 +13,15 @@ class UsersRepository {
   }
 
   async create({ name, email, password }) {
-    const newUser = await knex(tableName).insert({ name, email, password })
-    return { id: newUser }
+    return await knex(tableName).insert({ name, email, password })
   }
 
   async update({ user }) {
-    const userUpdated = await knex(tableName)
-      .where({ id: user.id })
-      .update(user)
-    return userUpdated
+    return await knex(tableName).where({ id: user.id }).update(user)
   }
 
   async delete({ user }) {
-    const userDeleted = await knex(tableName).where({ id: user.id }).delete()
-    return userDeleted
+    return await knex(tableName).where({ id: user.id }).delete()
   }
 }
 

@@ -20,12 +20,10 @@ class UserDeleteService {
     const correctPassword = await bcryptjs.compare(password, user.password)
 
     if (!correctPassword) {
-      throw new AppError('auth/password-incorrect')
+      throw new AppError('auth/incorrect-password')
     }
 
-    const userDeleted = await this.usersRepository.delete({ user })
-
-    return userDeleted
+    return await this.usersRepository.delete({ user })
   }
 }
 

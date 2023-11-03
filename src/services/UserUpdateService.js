@@ -9,9 +9,15 @@ class UserUpdateService {
   async execute({ id, requestPayload }) {
     const user = await this.usersRepository.findById(id)
     const { name, email, current_password, new_password } = requestPayload
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const isValidEmail = email => emailRegex.test(email)
 
     if (!user) {
       throw new AppError('auth/user-not-found')
+    }
+
+    if (email && !isValidEmail(email)) {
+      throw new AppError('auth/invalid-email')
     }
 
     if (email) {
@@ -42,14 +48,12 @@ class UserUpdateService {
         user.password
       )
       if (!passwordMatched) {
-        throw new AppError('auth/password-does-not-match')
+        throw new AppError('auth/incorrect-password')
       }
       user.password = await bcryptjs.hash(new_password, 8)
     }
 
-    const userUpdated = await this.usersRepository.update({ user })
-
-    return userUpdated
+    return await this.usersRepository.update({ user })
   }
 }
 
