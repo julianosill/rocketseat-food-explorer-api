@@ -14,8 +14,7 @@ class ProductsRepository {
   }
 
   async create(product) {
-    const productCreated = await knex(tableName).insert(product)
-    return productCreated
+    return await knex(tableName).insert(product)
   }
 
   async update({ id, product }) {

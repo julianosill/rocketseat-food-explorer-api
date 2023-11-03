@@ -27,6 +27,10 @@ class ProductCreateService {
       throw new AppError('product/name-already-exists')
     }
 
+    if (typeof price !== 'number') {
+      throw new AppError('product/price-is-not-a-number')
+    }
+
     const [product_id] = await this.productsRepository.create({
       name,
       description,
