@@ -5,44 +5,38 @@ class ProductCreateService {
     this.productsRepository = productsRepository
   }
 
-  async execute(requestData) {
-    const { name, description, category, ingredients, price } = requestData
+  async execute({ product, imageFile }) {
+    const { name, description, category, price } = product
 
-    if (!name) {
-      throw new AppError('product/name-is-missing')
+    const requiredColumns = {
+      name: 'product/name-is-missing',
+      description: 'product/description-is-missing',
+      category: 'product/category-is-missing',
+      ingredients: 'product/ingredients-are-missing',
+      price: 'product/price-is-missing',
     }
 
-    if (!description) {
-      throw new AppError('product/description-is-missing')
+    for (const column of Object.keys(requiredColumns)) {
+      if (!product[column]) {
+        throw new AppError(requiredColumns[column])
+      }
     }
 
-    if (!category) {
-      throw new AppError('product/category-is-missing')
+    if (!imageFile) {
+      throw new AppError('product/image-is-missing')
     }
 
-    if (!ingredients) {
-      throw new AppError('product/ingredients-are-missing')
-    }
-
-    if (!price) {
-      throw new AppError('product/price-is-missing')
-    }
-
-    const nameExists = await this.productsRepository.findByName(name)
+    const nameExists = await this.productsRepository.findByName(product.name)
     if (nameExists) {
       throw new AppError('product/name-already-exists')
     }
 
-    const product = {
+    return await this.productsRepository.create({
       name,
       description,
       category,
       price,
-    }
-
-    const productCreated = await this.productsRepository.create(product)
-
-    return productCreated
+    })
   }
 }
 
