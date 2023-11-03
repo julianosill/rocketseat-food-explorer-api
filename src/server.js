@@ -18,7 +18,7 @@ api.use(
     credentials: true,
   })
 )
-api.use('/images', express.static(UPLOADS_FOLDER))
+api.use('/files', express.static(UPLOADS_FOLDER))
 api.use(routes)
 
 api.use((error, req, res, next) => {

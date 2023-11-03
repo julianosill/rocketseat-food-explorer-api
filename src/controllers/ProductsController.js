@@ -1,26 +1,20 @@
 const ProductsRepository = require('../repositories/ProductsRepository')
-const IngredientsRepository = require('../repositories/IngredientsRepository')
-
 const ProductCreateService = require('../services/ProductCreateService')
 const ProductUpdateService = require('../services/ProductUpdateService')
 const ProductDeleteService = require('../services/ProductDeleteService')
 
+const IngredientsRepository = require('../repositories/IngredientsRepository')
 const IngredientCreateService = require('../services/IngredientCreateService')
 
-const ImageUpdateService = require('../services/ImageUpdateService')
 const ImageDeleteService = require('../services/ImageDeleteService')
 
 class ProductsController {
   async create(request, response) {
     const product = request.body
-    const imageFile = request.file
 
     const productsRepository = new ProductsRepository()
     const productCreateService = new ProductCreateService(productsRepository)
-    const [product_id] = await productCreateService.execute({
-      product,
-      imageFile,
-    })
+    const productCreated = await productCreateService.execute(product)
 
     // Add ingredients tags after creating the product
     const ingredientsRepository = new IngredientsRepository()
@@ -29,14 +23,11 @@ class ProductsController {
     )
     await ingredientCreateService.execute({
       ingredients: product.ingredients,
-      product_id,
+      product_id: productCreated.id,
     })
+    productCreated.ingredients = product.ingredients
 
-    // Append image to the product
-    const imageUpdateService = new ImageUpdateService(productsRepository)
-    await imageUpdateService.execute({ product_id, imageFile })
-
-    return response.status(201).json({ message: 'product-created' })
+    return response.status(201).json(productCreated)
   }
 
   async update(request, response) {

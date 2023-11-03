@@ -5,7 +5,7 @@ class ProductCreateService {
     this.productsRepository = productsRepository
   }
 
-  async execute({ product, imageFile }) {
+  async execute(product) {
     const { name, description, category, price } = product
 
     const requiredColumns = {
@@ -22,21 +22,27 @@ class ProductCreateService {
       }
     }
 
-    if (!imageFile) {
-      throw new AppError('product/image-is-missing')
-    }
-
     const nameExists = await this.productsRepository.findByName(product.name)
     if (nameExists) {
       throw new AppError('product/name-already-exists')
     }
 
-    return await this.productsRepository.create({
+    const [product_id] = await this.productsRepository.create({
       name,
       description,
       category,
       price,
     })
+
+    const productCreated = {
+      id: product_id,
+      name,
+      description,
+      category,
+      price,
+    }
+
+    return productCreated
   }
 }
 
