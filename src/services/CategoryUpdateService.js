@@ -21,9 +21,7 @@ class CategoryUpdateService {
       throw new AppError('category/name-already-exists')
     }
 
-    await this.categoriesRepository.update({ id, name })
-
-    return category
+    return await this.categoriesRepository.update({ id, name })
   }
 }
 

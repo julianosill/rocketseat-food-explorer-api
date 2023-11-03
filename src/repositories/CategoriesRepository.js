@@ -14,18 +14,15 @@ class CategoriesRepository {
   }
 
   async create(categoryData) {
-    const newCategory = await knex(tableName).insert(categoryData)
-    return newCategory
+    return await knex(tableName).insert(categoryData)
   }
 
   async update({ id, name }) {
-    const categoryUpdated = await knex(tableName).where({ id }).update({ name })
-    return categoryUpdated
+    return await knex(tableName).where({ id }).update({ name })
   }
 
   async delete({ id }) {
-    const categoryDeleted = await knex(tableName).where({ id }).delete()
-    return categoryDeleted
+    return await knex(tableName).where({ id }).delete()
   }
 }
 

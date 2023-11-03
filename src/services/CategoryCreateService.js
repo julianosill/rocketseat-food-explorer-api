@@ -15,11 +15,7 @@ class CategoryCreateService {
       throw new AppError('category/name-already-exists')
     }
 
-    const category = { name }
-
-    await this.categoriesRepository.create(category)
-
-    return category
+    return await this.categoriesRepository.create({ name })
   }
 }
 

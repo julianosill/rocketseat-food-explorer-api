@@ -12,9 +12,7 @@ class CategoryDeleteService {
       throw new AppError('category/category-not-found')
     }
 
-    await this.categoriesRepository.delete({ id })
-
-    return category
+    return await this.categoriesRepository.delete({ id })
   }
 }
 
