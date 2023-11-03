@@ -5,6 +5,7 @@ const ProductDeleteService = require('../services/ProductDeleteService')
 
 const IngredientsRepository = require('../repositories/IngredientsRepository')
 const IngredientCreateService = require('../services/IngredientCreateService')
+const IngredientUpdateService = require('../services/IngredientUpdateService')
 
 const ImageDeleteService = require('../services/ImageDeleteService')
 
@@ -36,13 +37,17 @@ class ProductsController {
 
     const productsRepository = new ProductsRepository()
     const productUpdateService = new ProductUpdateService(productsRepository)
-    const [product_id] = await productUpdateService.execute({ id, product })
+    await productUpdateService.execute({ id, product })
 
+    // Update ingredients tags after updating the product
     const ingredientsRepository = new IngredientsRepository()
-    const ingredientCreateService = new IngredientCreateService(
+    const ingredientUpdateService = new IngredientUpdateService(
       ingredientsRepository
     )
-    await ingredientCreateService.execute({ ingredients, product_id })
+    await ingredientUpdateService.execute({
+      ingredients: product.ingredients,
+      product_id: id,
+    })
 
     return response.status(201).json({ message: 'product-updated' })
   }

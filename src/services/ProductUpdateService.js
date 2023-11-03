@@ -5,45 +5,33 @@ class ProductUpdateService {
     this.productsRepository = productsRepository
   }
 
-  async execute({ id, requestData }) {
-    const { name, description, category, ingredients, price, image } =
-      requestData
+  async execute({ id, product }) {
+    const { name, description, category, price } = product
+    const productToUpdate = await this.productsRepository.findById(id)
 
-    if (!name) {
-      throw new AppError('product/name-is-missing')
+    if (!productToUpdate) {
+      throw new AppError('product/product-not-found')
     }
 
-    if (!description) {
-      throw new AppError('product/description-is-missing')
+    if (name) {
+      const nameExists = await this.productsRepository.findByName(name)
+      if (nameExists && nameExists.id != id) {
+        throw new AppError('product/name-already-exists')
+      }
     }
 
-    if (!category) {
-      throw new AppError('product/category-is-missing')
+    if (price && typeof price !== 'number') {
+      throw new AppError('product/price-is-not-a-number')
     }
 
-    if (!ingredients) {
-      throw new AppError('product/ingredients-are-missing')
+    product = {
+      name: name ?? productToUpdate.name,
+      description: description ?? productToUpdate.description,
+      category: category ?? productToUpdate.category,
+      price: price ?? productToUpdate.price,
     }
 
-    if (!price) {
-      throw new AppError('product/price-is-missing')
-    }
-
-    const nameExists = await this.productsRepository.findByName(name)
-    if (nameExists && nameExists.id != id) {
-      throw new AppError('product/name-already-exists')
-    }
-
-    const productData = {
-      name,
-      description,
-      category,
-      price,
-    }
-
-    await this.productsRepository.update({ id, productData })
-
-    return productData
+    return await this.productsRepository.update({ id, product })
   }
 }
 

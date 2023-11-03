@@ -19,13 +19,11 @@ class ProductsRepository {
   }
 
   async update({ id, product }) {
-    const productUpdated = await knex(tableName).where({ id }).update(product)
-    return productUpdated
+    return await knex(tableName).where({ id }).update(product)
   }
 
   async delete({ id }) {
-    const productDeleted = await knex(tableName).where({ id }).delete()
-    return productDeleted
+    return await knex(tableName).where({ id }).delete()
   }
 }
 
