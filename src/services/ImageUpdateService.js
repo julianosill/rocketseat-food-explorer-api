@@ -31,9 +31,7 @@ class ImageUpdateService {
     const filename = await diskStorage.saveFile(imageFile.filename)
     product.image = filename
 
-    await this.productsRepository.update({ id: product_id, product })
-
-    return product.image
+    return await this.productsRepository.update({ id: product_id, product })
   }
 }
 
