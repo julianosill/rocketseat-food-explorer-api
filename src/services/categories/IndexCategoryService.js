@@ -12,7 +12,7 @@ class IndexCategoryService {
       throw new AppError('category/categories-is-empty')
     }
 
-    return categories.map(category => category.name)
+    return categories
   }
 }
 
