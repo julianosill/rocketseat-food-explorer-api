@@ -17,19 +17,16 @@ class ProductsController {
 
     const productsRepository = new ProductsRepository()
     const indexProductService = new IndexProductService(productsRepository)
-    const products = await indexProductService.execute(requestQuery)
 
     const ingredientsRepository = new IngredientsRepository()
-    const ingredients = await ingredientsRepository.index()
+    const ingredientsDatabase = await ingredientsRepository.index()
 
-    const productsWithIngredients = products.map(product => {
-      const tags = ingredients
-        .filter(tag => tag.product_id === product.id)
-        .map(tag => tag.name)
-      return { ...product, ingredients: tags }
+    const products = await indexProductService.execute({
+      requestQuery,
+      ingredientsDatabase,
     })
 
-    return response.status(200).json(productsWithIngredients)
+    return response.status(200).json(products)
   }
 
   async show(request, response) {

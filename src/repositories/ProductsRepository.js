@@ -13,7 +13,7 @@ class ProductsRepository {
     return product
   }
 
-  async index({ name, category, tags }) {
+  async index({ name, category, ingredients }) {
     return await knex('ingredients')
       .innerJoin('products', 'products.id', 'ingredients.product_id')
       .modify(function (queryBuilder) {
@@ -23,8 +23,8 @@ class ProductsRepository {
         if (category) {
           queryBuilder.where('products.category', category)
         }
-        if (tags) {
-          queryBuilder.whereIn('ingredients.name', tags)
+        if (ingredients) {
+          queryBuilder.whereIn('ingredients.name', ingredients)
         }
       })
       .groupBy('products.id')

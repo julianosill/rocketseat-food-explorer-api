@@ -5,25 +5,32 @@ class IndexProductService {
     this.productsRepository = productsRepository
   }
 
-  async execute(requestQuery) {
+  async execute({ requestQuery, ingredientsDatabase }) {
     const { name, category, ingredients } = requestQuery
 
-    let tags
+    let ingredientsTags
     if (ingredients) {
-      tags = ingredients.split(',').map(tag => tag.trim())
+      ingredientsTags = ingredients.split(',').map(tag => tag.trim())
     }
 
     const products = await this.productsRepository.index({
       name,
       category,
-      tags,
+      ingredients: ingredientsTags,
     })
 
     if (!products.length) {
       throw new AppError('product/products-not-found')
     }
 
-    return products
+    const productsWithIngredients = products.map(product => {
+      const tags = ingredientsDatabase
+        .filter(tag => tag.product_id === product.id)
+        .map(tag => tag.name)
+      return { ...product, ingredients: tags }
+    })
+
+    return productsWithIngredients
   }
 }
 
