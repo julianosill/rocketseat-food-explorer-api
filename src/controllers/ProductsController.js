@@ -13,6 +13,7 @@ const ImageDeleteService = require('../services/ImageDeleteService')
 class ProductsController {
   async index(request, response) {
     const requestQuery = request.query
+
     const productsRepository = new ProductsRepository()
     const productIndexService = new ProductIndexService(productsRepository)
     const products = await productIndexService.execute(requestQuery)
@@ -20,12 +21,27 @@ class ProductsController {
     const ingredientsRepository = new IngredientsRepository()
     const ingredients = await ingredientsRepository.index()
 
-    const productWithIngredients = products.map(product => {
+    const productsWithIngredients = products.map(product => {
       const tags = ingredients
         .filter(tag => tag.product_id === product.id)
         .map(tag => tag.name)
       return { ...product, ingredients: tags }
     })
+
+    return response.status(200).json(productsWithIngredients)
+  }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    const productsRepository = new ProductsRepository()
+    const product = await productsRepository.findById(id)
+
+    const ingredientsRepository = new IngredientsRepository()
+    const ingredients = await ingredientsRepository.findByProductId(id)
+
+    const tags = ingredients.map(tag => tag.name)
+    const productWithIngredients = { ...product, ingredients: tags }
 
     return response.status(200).json(productWithIngredients)
   }
