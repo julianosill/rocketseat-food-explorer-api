@@ -1,4 +1,5 @@
 const ProductsRepository = require('../repositories/ProductsRepository')
+const ProductIndexService = require('../services/ProductIndexService')
 const ProductCreateService = require('../services/ProductCreateService')
 const ProductUpdateService = require('../services/ProductUpdateService')
 const ProductDeleteService = require('../services/ProductDeleteService')
@@ -10,6 +11,25 @@ const IngredientUpdateService = require('../services/IngredientUpdateService')
 const ImageDeleteService = require('../services/ImageDeleteService')
 
 class ProductsController {
+  async index(request, response) {
+    const requestQuery = request.query
+    const productsRepository = new ProductsRepository()
+    const productIndexService = new ProductIndexService(productsRepository)
+    const products = await productIndexService.execute(requestQuery)
+
+    const ingredientsRepository = new IngredientsRepository()
+    const ingredients = await ingredientsRepository.index()
+
+    const productWithIngredients = products.map(product => {
+      const tags = ingredients
+        .filter(tag => tag.product_id === product.id)
+        .map(tag => tag.name)
+      return { ...product, ingredients: tags }
+    })
+
+    return response.status(200).json(productWithIngredients)
+  }
+
   async create(request, response) {
     const product = request.body
 

@@ -13,6 +13,24 @@ class ProductsRepository {
     return product
   }
 
+  async index({ name, category, tags }) {
+    return await knex('ingredients')
+      .innerJoin('products', 'products.id', 'ingredients.product_id')
+      .modify(function (queryBuilder) {
+        if (name) {
+          queryBuilder.whereLike('products.name', `%${name}%`)
+        }
+        if (category) {
+          queryBuilder.where('products.category', category)
+        }
+        if (tags) {
+          queryBuilder.whereIn('ingredients.name', tags)
+        }
+      })
+      .groupBy('products.id')
+      .orderBy('products.name')
+  }
+
   async create(product) {
     return await knex(tableName).insert(product)
   }

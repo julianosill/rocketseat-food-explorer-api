@@ -10,6 +10,11 @@ class IngredientsRepository {
     return ingredient
   }
 
+  async index() {
+    const ingredients = await knex(tableName).orderBy('name')
+    return ingredients
+  }
+
   async create(tags) {
     const ingredients = await knex(tableName).insert(tags)
     return ingredients
