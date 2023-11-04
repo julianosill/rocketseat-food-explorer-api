@@ -1,5 +1,6 @@
 const CategoriesRepository = require('../repositories/CategoriesRepository')
 const IndexCategoryService = require('../services/categories/IndexCategoryService')
+const ShowCategoryService = require('../services/categories/ShowCategoryService')
 const CreateCategoryService = require('../services/categories/CreateCategoryService')
 const DeleteCategoryService = require('../services/categories/DeleteCategoryService')
 const UpdateCategoryService = require('../services/categories/UpdateCategoryService')
@@ -15,32 +16,48 @@ class CategoriesController {
 
   async create(request, response) {
     const { name } = request.body
+
     const categoriesRepository = new CategoriesRepository()
     const createCategoryService = new CreateCategoryService(
       categoriesRepository
     )
     await createCategoryService.execute({ name })
+
     return response.status(201).json({ message: 'category-created' })
+  }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    const categoriesRepository = new CategoriesRepository()
+    const showCategoryService = new ShowCategoryService(categoriesRepository)
+    const category = await showCategoryService.execute(id)
+
+    return response.status(201).json(category)
   }
 
   async update(request, response) {
     const { id } = request.params
     const { name } = request.body
+
     const categoriesRepository = new CategoriesRepository()
     const updateCategoryService = new UpdateCategoryService(
       categoriesRepository
     )
     await updateCategoryService.execute({ id, name })
+
     return response.status(201).json({ message: 'category-updated' })
   }
 
   async delete(request, response) {
     const { id } = request.params
+
     const categoriesRepository = new CategoriesRepository()
     const deleteCategoryService = new DeleteCategoryService(
       categoriesRepository
     )
     await deleteCategoryService.execute({ id })
+
     return response.status(201).json({ message: 'category-deleted' })
   }
 }
