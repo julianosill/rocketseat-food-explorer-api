@@ -9,7 +9,7 @@ class IndexCategoryService {
     const categories = await this.categoriesRepository.index()
 
     if (!categories) {
-      throw new AppError('category/categories-is-empty')
+      throw new AppError('category/no-categories-registered')
     }
 
     return categories
