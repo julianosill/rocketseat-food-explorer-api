@@ -1,5 +1,5 @@
 const ProductsRepository = require('../repositories/ProductsRepository')
-const ImageUpdateService = require('../services/ImageUpdateService')
+const UpdateImageService = require('../services/images/UpdateImageService')
 
 class ImageController {
   async update(request, response) {
@@ -7,8 +7,8 @@ class ImageController {
     const imageFile = request.file
 
     const productsRepository = new ProductsRepository()
-    const imageUpdateService = new ImageUpdateService(productsRepository)
-    await imageUpdateService.execute({ product_id, imageFile })
+    const updateImageService = new UpdateImageService(productsRepository)
+    await updateImageService.execute({ product_id, imageFile })
 
     return response.status(201).json({ message: 'image-updated' })
   }

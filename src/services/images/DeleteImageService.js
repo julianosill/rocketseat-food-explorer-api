@@ -1,7 +1,7 @@
-const DiskStorage = require('../providers/DiskStorage')
-const AppError = require('../utils/AppError')
+const DiskStorage = require('../../providers/DiskStorage')
+const AppError = require('../../utils/AppError')
 
-class ImageDeleteService {
+class DeleteImageService {
   constructor(productsRepository) {
     this.productsRepository = productsRepository
   }
@@ -22,4 +22,4 @@ class ImageDeleteService {
   }
 }
 
-module.exports = ImageDeleteService
+module.exports = DeleteImageService

@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs')
-const AppError = require('../utils/AppError')
+const AppError = require('../../utils/AppError')
 
-class UserUpdateService {
+class UpdateUserService {
   constructor(usersRepository) {
     this.usersRepository = usersRepository
   }
@@ -57,4 +57,4 @@ class UserUpdateService {
   }
 }
 
-module.exports = UserUpdateService
+module.exports = UpdateUserService

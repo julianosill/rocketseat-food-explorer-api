@@ -1,22 +1,22 @@
 const ProductsRepository = require('../repositories/ProductsRepository')
-const ProductIndexService = require('../services/ProductIndexService')
-const ProductCreateService = require('../services/ProductCreateService')
-const ProductUpdateService = require('../services/ProductUpdateService')
-const ProductDeleteService = require('../services/ProductDeleteService')
+const IndexProductService = require('../services/products/IndexProductService')
+const CreateProductService = require('../services/products/CreateProductService')
+const UpdateProductService = require('../services/products/UpdateProductService')
+const DeleteProductService = require('../services/products/DeleteProductService')
 
 const IngredientsRepository = require('../repositories/IngredientsRepository')
-const IngredientCreateService = require('../services/IngredientCreateService')
-const IngredientUpdateService = require('../services/IngredientUpdateService')
+const CreateIngredientService = require('../services/ingredients/CreateIngredientService')
+const UpdateIngredientService = require('../services/ingredients/UpdateIngredientService')
 
-const ImageDeleteService = require('../services/ImageDeleteService')
+const DeleteImageService = require('../services/images/DeleteImageService')
 
 class ProductsController {
   async index(request, response) {
     const requestQuery = request.query
 
     const productsRepository = new ProductsRepository()
-    const productIndexService = new ProductIndexService(productsRepository)
-    const products = await productIndexService.execute(requestQuery)
+    const indexProductService = new IndexProductService(productsRepository)
+    const products = await indexProductService.execute(requestQuery)
 
     const ingredientsRepository = new IngredientsRepository()
     const ingredients = await ingredientsRepository.index()
@@ -50,15 +50,15 @@ class ProductsController {
     const product = request.body
 
     const productsRepository = new ProductsRepository()
-    const productCreateService = new ProductCreateService(productsRepository)
-    const productCreated = await productCreateService.execute(product)
+    const createProductService = new CreateProductService(productsRepository)
+    const productCreated = await createProductService.execute(product)
 
     // Add ingredients tags after creating the product
     const ingredientsRepository = new IngredientsRepository()
-    const ingredientCreateService = new IngredientCreateService(
+    const createIngredientService = new CreateIngredientService(
       ingredientsRepository
     )
-    await ingredientCreateService.execute({
+    await createIngredientService.execute({
       ingredients: product.ingredients,
       product_id: productCreated.id,
     })
@@ -72,15 +72,15 @@ class ProductsController {
     const product = request.body
 
     const productsRepository = new ProductsRepository()
-    const productUpdateService = new ProductUpdateService(productsRepository)
-    await productUpdateService.execute({ id, product })
+    const updateProductService = new UpdateProductService(productsRepository)
+    await updateProductService.execute({ id, product })
 
     // Update ingredients tags after updating the product
     const ingredientsRepository = new IngredientsRepository()
-    const ingredientUpdateService = new IngredientUpdateService(
+    const updateIngredientService = new UpdateIngredientService(
       ingredientsRepository
     )
-    await ingredientUpdateService.execute({
+    await updateIngredientService.execute({
       ingredients: product.ingredients,
       product_id: id,
     })
@@ -92,11 +92,11 @@ class ProductsController {
     const { id } = request.params
     const productsRepository = new ProductsRepository()
 
-    const imageDeleteService = new ImageDeleteService(productsRepository)
-    const productDeleteService = new ProductDeleteService(productsRepository)
+    const deleteImageService = new DeleteImageService(productsRepository)
+    const deleteProductService = new DeleteProductService(productsRepository)
 
-    await imageDeleteService.execute({ id })
-    await productDeleteService.execute({ id })
+    await deleteImageService.execute({ id })
+    await deleteProductService.execute({ id })
 
     return response.status(201).json({ message: 'product-deleted' })
   }

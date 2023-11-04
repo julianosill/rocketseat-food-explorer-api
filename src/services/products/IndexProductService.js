@@ -1,6 +1,6 @@
-const AppError = require('../utils/AppError')
+const AppError = require('../../utils/AppError')
 
-class ProductIndexService {
+class IndexProductService {
   constructor(productsRepository) {
     this.productsRepository = productsRepository
   }
@@ -27,4 +27,4 @@ class ProductIndexService {
   }
 }
 
-module.exports = ProductIndexService
+module.exports = IndexProductService

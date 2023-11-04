@@ -18,8 +18,8 @@ class CategoriesRepository {
     return categories
   }
 
-  async create(categoryData) {
-    return await knex(tableName).insert(categoryData)
+  async create(category) {
+    return await knex(tableName).insert(category)
   }
 
   async update({ id, name }) {

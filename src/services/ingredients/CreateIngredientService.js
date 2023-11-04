@@ -1,4 +1,4 @@
-class IngredientCreateService {
+class CreateIngredientService {
   constructor(ingredientsRepository) {
     this.ingredientsRepository = ingredientsRepository
   }
@@ -14,4 +14,4 @@ class IngredientCreateService {
   }
 }
 
-module.exports = IngredientCreateService
+module.exports = CreateIngredientService

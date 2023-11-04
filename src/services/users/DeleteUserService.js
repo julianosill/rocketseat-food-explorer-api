@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs')
-const AppError = require('../utils/AppError')
+const AppError = require('../../utils/AppError')
 
-class UserDeleteService {
+class DeleteUserService {
   constructor(usersRepository) {
     this.usersRepository = usersRepository
   }
@@ -27,4 +27,4 @@ class UserDeleteService {
   }
 }
 
-module.exports = UserDeleteService
+module.exports = DeleteUserService

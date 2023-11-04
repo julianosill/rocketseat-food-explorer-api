@@ -1,7 +1,7 @@
-const AppError = require('../utils/AppError')
-const DiskStorage = require('../providers/DiskStorage')
+const DiskStorage = require('../../providers/DiskStorage')
+const AppError = require('../../utils/AppError')
 
-class ImageUpdateService {
+class UpdateImageService {
   constructor(productsRepository) {
     this.productsRepository = productsRepository
   }
@@ -35,4 +35,4 @@ class ImageUpdateService {
   }
 }
 
-module.exports = ImageUpdateService
+module.exports = UpdateImageService
