@@ -36,7 +36,8 @@ class ProductsRepository {
   }
 
   async update({ id, product }) {
-    return await knex(tableName).where({ id }).update(product)
+    const updatedProduct = { ...product, updated_at: knex.fn.now() }
+    return await knex(tableName).where({ id }).update(updatedProduct)
   }
 
   async delete({ id }) {
