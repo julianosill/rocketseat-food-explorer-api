@@ -5,14 +5,24 @@ class ShowCategoryService {
     this.categoriesRepository = categoriesRepository
   }
 
-  async execute(id) {
+  async execute({ id, productsRepository }) {
     const category = await this.categoriesRepository.findById(id)
 
     if (!category) {
       throw new AppError('category/category-not-found')
     }
 
-    return category
+    const productsByCategory = await productsRepository.findByCategory(
+      category.name
+    )
+
+    const categoryWithProducts = {
+      ...category,
+      total: productsByCategory.length,
+      products: productsByCategory,
+    }
+
+    return categoryWithProducts
   }
 }
 

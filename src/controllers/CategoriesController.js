@@ -5,6 +5,9 @@ const CreateCategoryService = require('../services/categories/CreateCategoryServ
 const DeleteCategoryService = require('../services/categories/DeleteCategoryService')
 const UpdateCategoryService = require('../services/categories/UpdateCategoryService')
 
+const ProductsRepository = require('../repositories/ProductsRepository')
+const IndexProductService = require('../services/products/IndexProductService')
+
 class CategoriesController {
   async index(request, response) {
     const categoriesRepository = new CategoriesRepository()
@@ -31,7 +34,13 @@ class CategoriesController {
 
     const categoriesRepository = new CategoriesRepository()
     const showCategoryService = new ShowCategoryService(categoriesRepository)
-    const category = await showCategoryService.execute(id)
+
+    const productsRepository = new ProductsRepository()
+
+    const category = await showCategoryService.execute({
+      id,
+      productsRepository,
+    })
 
     return response.status(201).json(category)
   }

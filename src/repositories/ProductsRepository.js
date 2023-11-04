@@ -13,6 +13,11 @@ class ProductsRepository {
     return product
   }
 
+  async findByCategory(category) {
+    const products = await knex(tableName).where({ category }).orderBy('name')
+    return products
+  }
+
   async index({ name, category, ingredients }) {
     return await knex('ingredients')
       .innerJoin('products', 'products.id', 'ingredients.product_id')
