@@ -17,7 +17,8 @@ class UsersRepository {
   }
 
   async update({ user }) {
-    return await knex(tableName).where({ id: user.id }).update(user)
+    const updatedUser = { ...user, updated_at: knex.fn.now() }
+    return await knex(tableName).where({ id: user.id }).update(updatedUser)
   }
 
   async delete({ user }) {
