@@ -18,10 +18,15 @@ class ProductsRepository {
     return products
   }
 
-  async index({ name, category, ingredients }) {
+  async index({ search, name, category, ingredients }) {
     return await knex('ingredients')
       .innerJoin('products', 'products.id', 'ingredients.product_id')
       .modify(function (queryBuilder) {
+        if (search) {
+          queryBuilder
+            .whereLike('products.name', `%${search}%`)
+            .orWhereLike('ingredients.name', search)
+        }
         if (name) {
           queryBuilder.whereLike('products.name', `%${name}%`)
         }

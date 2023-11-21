@@ -6,7 +6,7 @@ class IndexProductService {
   }
 
   async execute({ requestQuery, ingredientsDatabase }) {
-    const { name, category, ingredients } = requestQuery
+    const { search, name, category, ingredients } = requestQuery
 
     let ingredientsTags
     if (ingredients) {
@@ -14,6 +14,7 @@ class IndexProductService {
     }
 
     const products = await this.productsRepository.index({
+      search,
       name,
       category,
       ingredients: ingredientsTags,
