@@ -18,7 +18,7 @@ class ProductsRepository {
     return products
   }
 
-  async index({ search, name, category, ingredients }) {
+  async index({ search, name, category, ingredients, id }) {
     return await knex('ingredients')
       .innerJoin('products', 'products.id', 'ingredients.product_id')
       .modify(function (queryBuilder) {
@@ -26,6 +26,9 @@ class ProductsRepository {
           queryBuilder
             .whereLike('products.name', `%${search}%`)
             .orWhereLike('ingredients.name', search)
+        }
+        if (id) {
+          queryBuilder.whereIn('products.id', id)
         }
         if (name) {
           queryBuilder.whereLike('products.name', `%${name}%`)
