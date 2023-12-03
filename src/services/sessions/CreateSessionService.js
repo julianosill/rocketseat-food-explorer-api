@@ -38,7 +38,13 @@ class CreateSessionService {
       expiresIn,
     })
 
-    return { id: user.id, role: user.role, token }
+    const userResponse = {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    }
+
+    return { user: userResponse, token }
   }
 }
 
