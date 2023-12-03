@@ -9,7 +9,7 @@ class ValidateUserService {
     const userExists = await this.usersRepository.findById(user.id)
 
     if (!userExists) {
-      throw new AppError('auth/unauthorized', 401)
+      throw new AppError('user/user-not-found', 401)
     }
 
     return true
