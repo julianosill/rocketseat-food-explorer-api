@@ -6,8 +6,19 @@ class SessionsController {
     const { email, password } = request.body
     const usersRepository = new UsersRepository()
     const createSessionService = new CreateSessionService(usersRepository)
-    const sessionData = await createSessionService.execute({ email, password })
-    return response.status(201).json(sessionData)
+    const { user, token } = await createSessionService.execute({
+      email,
+      password,
+    })
+
+    response.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+      maxAge: 15 * 60 * 1000,
+    })
+
+    return response.status(201).json(user)
   }
 }
 

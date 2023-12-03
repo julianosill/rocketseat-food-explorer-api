@@ -1,7 +1,8 @@
 const bcryptjs = require('bcryptjs')
 const JWT = require('jsonwebtoken')
+
 const AppError = require('../../utils/AppError')
-const AuthJWT = require('../../configs/auth')
+const authConfig = require('../../configs/auth')
 
 class CreateSessionService {
   constructor(usersRepository) {
@@ -23,17 +24,17 @@ class CreateSessionService {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      throw new AppError('auth/email-or-password-incorrect')
+      throw new AppError('auth/email-or-password-incorrect', 401)
     }
 
     const matchPassword = await bcryptjs.compare(password, user.password)
 
     if (!matchPassword) {
-      throw new AppError('auth/email-or-password-incorrect')
+      throw new AppError('auth/email-or-password-incorrect', 401)
     }
 
-    const { secret, expiresIn } = AuthJWT
-    const token = JWT.sign({}, secret, {
+    const { secret, expiresIn } = authConfig.jwt
+    const token = JWT.sign({ role: user.role }, secret, {
       subject: String(user.id),
       expiresIn,
     })
@@ -41,7 +42,6 @@ class CreateSessionService {
     const userResponse = {
       name: user.name,
       email: user.email,
-      role: user.role,
     }
 
     return { user: userResponse, token }

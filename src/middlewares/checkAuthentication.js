@@ -1,20 +1,21 @@
 const JWT = require('jsonwebtoken')
 const AppError = require('../utils/AppError')
-const AuthJWT = require('../configs/auth')
+const authConfig = require('../configs/auth')
 
 function checkAuthentication(request, response, next) {
-  const authHeader = request.headers.authorization
+  const authHeader = request.headers
 
-  if (!authHeader) {
+  if (!authHeader.cookie) {
     throw new AppError('JWT Token not found', 401)
   }
 
-  const [_, token] = authHeader.split(' ')
+  const [_, token] = authHeader.cookie.split('token=')
 
   try {
-    const { sub: user_id } = JWT.verify(token, AuthJWT.secret)
+    const { role, sub: user_id } = JWT.verify(token, authConfig.jwt.secret)
     request.user = {
       id: Number(user_id),
+      role,
     }
     return next()
   } catch (error) {
