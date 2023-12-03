@@ -1,5 +1,6 @@
 const UsersRepository = require('../repositories/UsersRepository')
 const CreateUserService = require('../services/users/CreateUserService')
+const ValidateUserService = require('../services/users/ValidateUserService')
 const UpdateUserService = require('../services/users/UpdateUserService')
 const DeleteUserService = require('../services/users/DeleteUserService')
 
@@ -10,6 +11,14 @@ class UsersController {
     const createUserService = new CreateUserService(usersRepository)
     await createUserService.execute({ name, email, password })
     return response.status(201).json({ message: 'user-created' })
+  }
+
+  async validate(request, response) {
+    const { user } = request
+    const usersRepository = new UsersRepository()
+    const validateUserService = new ValidateUserService(usersRepository)
+    await validateUserService.execute({ user })
+    return response.status(201).json()
   }
 
   async update(request, response) {
