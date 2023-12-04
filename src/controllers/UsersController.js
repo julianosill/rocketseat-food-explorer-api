@@ -17,8 +17,8 @@ class UsersController {
     const { user } = request
     const usersRepository = new UsersRepository()
     const validateUserService = new ValidateUserService(usersRepository)
-    await validateUserService.execute({ user })
-    return response.status(201).json()
+    const userData = await validateUserService.execute({ user })
+    return response.status(201).json({ user: userData })
   }
 
   async update(request, response) {

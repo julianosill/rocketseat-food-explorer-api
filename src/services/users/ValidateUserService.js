@@ -6,13 +6,15 @@ class ValidateUserService {
   }
 
   async execute({ user }) {
-    const userExists = await this.usersRepository.findById(user.id)
+    const userRegistered = await this.usersRepository.findById(user.id)
 
-    if (!userExists) {
+    if (!userRegistered) {
       throw new AppError('user/user-not-found', 401)
     }
 
-    return true
+    const { name, email, role } = userRegistered
+
+    return { name, email, role }
   }
 }
 
