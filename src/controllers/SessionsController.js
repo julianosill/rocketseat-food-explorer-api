@@ -18,7 +18,7 @@ class SessionsController {
       maxAge: 15 * 60 * 1000,
     })
 
-    return response.status(201).json(user)
+    return response.status(201).json({ user })
   }
 }
 
