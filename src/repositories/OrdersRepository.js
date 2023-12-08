@@ -17,6 +17,11 @@ class OrdersRepository {
   async create({ description, user_id }) {
     return await knex(tableName).insert({ description, user_id })
   }
+
+  async update({ id, status }) {
+    const updatedOrder = { status, updated_at: knex.fn.now() }
+    return await knex(tableName).where({ id }).update(updatedOrder)
+  }
 }
 
 module.exports = OrdersRepository

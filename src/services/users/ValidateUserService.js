@@ -9,7 +9,7 @@ class ValidateUserService {
     const userRegistered = await this.usersRepository.findById(user.id)
 
     if (!userRegistered) {
-      throw new AppError('user/user-not-found', 401)
+      throw new AppError('auth/user-not-found', 401)
     }
 
     const { name, email, role } = userRegistered

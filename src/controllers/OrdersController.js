@@ -1,6 +1,7 @@
 const OrdersRepository = require('../repositories/OrdersRepository')
 const IndexOrderService = require('../services/orders/IndexOrderService')
 const CreateOrderService = require('../services/orders/CreateOrderService')
+const UpdateOrderService = require('../services/orders/UpdateOrderService')
 
 class OrdersController {
   async index(request, response) {
@@ -18,6 +19,14 @@ class OrdersController {
     const createOrderService = new CreateOrderService(ordersRepository)
     await createOrderService.execute({ description, user_id: user.id })
     return response.status(201).json({ message: 'order-created' })
+  }
+
+  async update(request, response) {
+    const { id, status } = request.body
+    const ordersRepository = new OrdersRepository()
+    const updateOrderService = new UpdateOrderService(ordersRepository)
+    await updateOrderService.execute({ id, status })
+    return response.status(201).json({ message: 'order-updated' })
   }
 }
 
