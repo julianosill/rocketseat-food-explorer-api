@@ -9,7 +9,9 @@ class OrdersRepository {
 
   async index(user_id) {
     if (user_id) {
-      return await knex(tableName).where({ user_id }).orderBy('id')
+      return await knex(tableName)
+        .where({ user_id })
+        .orderBy('created_at', 'desc')
     }
     return await knex(tableName).orderBy('id')
   }
