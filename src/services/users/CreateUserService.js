@@ -15,6 +15,10 @@ class CreateUserService {
       throw new AppError('auth/email-already-exists')
     }
 
+    if (!name) {
+      throw new AppError('auth/name-is-missing')
+    }
+
     if (!isValidEmail(email)) {
       throw new AppError('auth/invalid-email')
     }
