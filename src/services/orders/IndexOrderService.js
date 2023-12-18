@@ -15,7 +15,7 @@ class IndexOrderService {
       orders = await this.ordersRepository.index(id)
     }
 
-    if (!orders) {
+    if (orders.length === 0) {
       throw new AppError('order/orders-not-found')
     }
 
