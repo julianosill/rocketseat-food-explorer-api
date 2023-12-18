@@ -40,6 +40,16 @@ class ProductsRepository {
           queryBuilder.whereIn('ingredients.name', ingredients)
         }
       })
+      .select(
+        'products.id',
+        'products.name',
+        'products.description',
+        'products.category',
+        'products.price',
+        'products.image',
+        'products.created_at',
+        'products.updated_at'
+      )
       .groupBy('products.id')
       .orderBy('products.name')
   }
