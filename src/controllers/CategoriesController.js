@@ -6,7 +6,6 @@ const DeleteCategoryService = require('../services/categories/DeleteCategoryServ
 const UpdateCategoryService = require('../services/categories/UpdateCategoryService')
 
 const ProductsRepository = require('../repositories/ProductsRepository')
-const IndexProductService = require('../services/products/IndexProductService')
 
 class CategoriesController {
   async index(request, response) {
