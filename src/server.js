@@ -37,5 +37,5 @@ api.use((error, req, res, next) => {
   })
 })
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3333
 api.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
