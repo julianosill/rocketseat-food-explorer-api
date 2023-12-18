@@ -23,7 +23,7 @@ class CreateProductService {
     }
 
     if (ingredients.length <= 0) {
-      throw new AppError('product/ingredients-is-empty')
+      throw new AppError('product/ingredients-are-missing')
     }
 
     const nameExists = await this.productsRepository.findByName(product.name)

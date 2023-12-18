@@ -7,10 +7,10 @@ class UpdateOrderService {
 
   async execute({ id, status }) {
     if (!id) {
-      throw new AppError('order/id-missing')
+      throw new AppError('order/id-is-missing')
     }
     if (!status) {
-      throw new AppError('order/status-missing')
+      throw new AppError('order/status-is-missing')
     }
 
     const order = await this.ordersRepository.findById(id)

@@ -7,13 +7,13 @@ class CreateOrderService {
 
   async execute({ description, user_id }) {
     if (!description) {
-      throw new AppError('order/description-missing')
+      throw new AppError('order/description-is-missing')
     }
     if (typeof description !== 'string') {
       throw new AppError('order/description-must-be-string')
     }
     if (!user_id) {
-      throw new AppError('order/user-id-missing')
+      throw new AppError('order/user_id-is-missing')
     }
 
     return await this.ordersRepository.create({ description, user_id })
