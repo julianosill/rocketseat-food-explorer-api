@@ -22,7 +22,8 @@ class OrdersController {
   }
 
   async update(request, response) {
-    const { id, status } = request.body
+    const { id } = request.params
+    const { status } = request.body
     const ordersRepository = new OrdersRepository()
     const updateOrderService = new UpdateOrderService(ordersRepository)
     await updateOrderService.execute({ id, status })
