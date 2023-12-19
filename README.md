@@ -22,14 +22,12 @@ A API possui três níveis de autorização: visitante, cliente e administrador.
 
 ```bash
 # Visitante
-
 - Iniciar sessão
 - Criar conta
 ```
 
 ```bash
 # Cliente
-
 - Todas as permissões acima
 - Visualizar e pesquisar produtos
 - Gerenciar carrinho de compras e favoritos
@@ -38,7 +36,6 @@ A API possui três níveis de autorização: visitante, cliente e administrador.
 
 ```bash
 # Administrador
-
 - Todas as permissões acima
 - Gerenciar produtos (adicionar, alterar e excluir)
 - Gerenciar pedidos (visualizar e alterar status)
@@ -144,7 +141,7 @@ Crie um arquivo chamado `.env` ou (renomeie o aquivo `.env_sample`) na pasta ra�
 # porta de sua preferência
 PORT=XXXX
 # domínio da sua aplicação Front-End
-CORS_ORIGIN=http://aplicacaofrontend.com
+CORS_ORIGIN=url_da_sua_aplicacao
 
 # DATABASE
 DB_CLIENT=sqlite3
