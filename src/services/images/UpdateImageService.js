@@ -24,6 +24,12 @@ class UpdateImageService {
       throw new AppError('product/product-not-found')
     }
 
+    if (imageFile.mimetype !== 'image/png') {
+      const isTmpFile = true
+      await diskStorage.deleteFile(imageFile.filename, isTmpFile)
+      throw new AppError('image/image-must-be-png')
+    }
+
     if (product.image) {
       await diskStorage.deleteFile(product.image)
     }
