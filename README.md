@@ -276,7 +276,7 @@ Faça uma requisição ao _endpoint_ `/sessions`, utilizando o método `POST`, e
 >   "user": {
 >     "name": "string",
 >     "email": "string",
->     "role": "admin" ou "customer"
+>     "role": "admin ou customer"
 >   }
 > }
 > ```
@@ -292,11 +292,11 @@ Faça uma requisição ao _endpoint_ `/products`, utilizando o método `GET`.
 > ```json
 > [
 >   {
->     "id": number,
+>     "id": 00,
 >     "name": "string",
 >     "description": "string",
 >     "category": "string",
->     "price": number,
+>     "price": 00,
 >     "image": "string",
 >     "created_at": "YYYY-MM-DD HH:MM:SS",
 >     "updated_at": "YYYY-MM-DD HH:MM:SS",
@@ -327,11 +327,11 @@ Faça uma requisição ao _endpoint_ `/products/:id`, utilizando o método `GET`
 >
 > ```json
 > {
->   "id": number,
+>   "id": 00,
 >   "name": "string",
 >   "description": "string",
 >   "category": "string",
->   "price": number,
+>   "price": 00,
 >   "image": "string",
 >   "created_at": "YYYY-MM-DD HH:MM:SS",
 >   "updated_at": "YYYY-MM-DD HH:MM:SS",
@@ -357,11 +357,11 @@ Faça uma requisição ao _endpoint_ `/products`, utilizando o método `POST`, e
 >
 > ```json
 > {
->   "id": number,
+>   "id": 00,
 >   "name": "string",
 >   "description": "string",
 >   "category": "string",
->   "price": number,
+>   "price": 00,
 >   "ingredients": ["string", "string", "string"]
 > }
 > ```
@@ -398,14 +398,14 @@ Faça uma requisição ao _endpoint_ `/orders`, utilizando o método `GET`.
 >
 > ```json
 > [
->  {
->    "id": number,
->    "status": "string",
->    "description": "string",
->    "user_id": number,
->    "created_at": "YYYY-MM-DD HH:MM:SS",
->    "updated_at": "YYYY-MM-DD HH:MM:SS"
->  }
+>   {
+>     "id": 00,
+>     "status": "string",
+>     "description": "string",
+>     "user_id": 00,
+>     "created_at": "YYYY-MM-DD HH:MM:SS",
+>     "updated_at": "YYYY-MM-DD HH:MM:SS"
+>   }
 > ]
 > ```
 
@@ -440,7 +440,7 @@ Faça uma requisição ao _endpoint_ `/categories`, utilizando o método `GET`.
 > ```json
 > [
 >   {
->     "id": number,
+>     "id": 00,
 >     "name": "string"
 >   }
 > ]
@@ -455,16 +455,16 @@ Faça uma requisição ao _endpoint_ `/categories/:id`, utilizando o método `GE
 > ```json
 > [
 >   {
->     "id": number,
+>     "id": 00,
 >     "name": "string",
->     "total": number,
+>     "total": 00,
 >     "products": [
 >       {
->         "id": number,
+>         "id": 00,
 >         "name": "string",
 >         "description": "string",
 >         "category": "string",
->         "price": number,
+>         "price": 00,
 >         "image": "string",
 >         "created_at": "YYYY-MM-DD HH:MM:SS",
 >         "updated_at": "YYYY-MM-DD HH:MM:SS"
