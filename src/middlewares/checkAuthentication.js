@@ -6,7 +6,7 @@ function checkAuthentication(request, response, next) {
   const authHeader = request.headers
 
   if (!authHeader.cookie) {
-    throw new AppError('JWT Token not found', 401)
+    throw new AppError('auth/jwt-token-not-found', 401)
   }
 
   const [_, token] = authHeader.cookie.split('token=')
@@ -20,7 +20,7 @@ function checkAuthentication(request, response, next) {
     return next()
   } catch (error) {
     console.error(error)
-    throw new Error('JWT Token invalid', 401)
+    throw new Error('auth/jwt-token-invalid', 401)
   }
 }
 
