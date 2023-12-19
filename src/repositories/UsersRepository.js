@@ -2,6 +2,11 @@ const knex = require('../database/knex')
 
 const tableName = 'users'
 class UsersRepository {
+  async hasAnyUser() {
+    const user = await knex(tableName).first()
+    return user
+  }
+
   async findById(id) {
     const user = await knex(tableName).where({ id }).first()
     return user
@@ -12,8 +17,8 @@ class UsersRepository {
     return user
   }
 
-  async create({ name, email, password }) {
-    return await knex(tableName).insert({ name, email, password })
+  async create({ user }) {
+    return await knex(tableName).insert(user)
   }
 
   async update({ user }) {

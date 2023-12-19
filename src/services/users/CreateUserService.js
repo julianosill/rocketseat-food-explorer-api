@@ -7,6 +7,7 @@ class CreateUserService {
   }
 
   async execute({ name, email, password }) {
+    const hasAnyUser = await this.usersRepository.hasAnyUser()
     const userExists = await this.usersRepository.findByEmail(email)
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const isValidEmail = email => emailRegex.test(email)
@@ -29,11 +30,14 @@ class CreateUserService {
 
     const hashedPassword = await bcryptjs.hash(password, 8)
 
-    return await this.usersRepository.create({
+    const user = {
       name,
       email,
       password: hashedPassword,
-    })
+      role: hasAnyUser ? 'customer' : 'admin',
+    }
+
+    return await this.usersRepository.create({ user })
   }
 }
 
