@@ -292,11 +292,11 @@ Faça uma requisição ao _endpoint_ `/products`, utilizando o método `GET`.
 > ```json
 > [
 >   {
->     "id": 00,
+>     "id": "number",
 >     "name": "string",
 >     "description": "string",
 >     "category": "string",
->     "price": 00,
+>     "price": "number",
 >     "image": "string",
 >     "created_at": "YYYY-MM-DD HH:MM:SS",
 >     "updated_at": "YYYY-MM-DD HH:MM:SS",
@@ -327,11 +327,11 @@ Faça uma requisição ao _endpoint_ `/products/:id`, utilizando o método `GET`
 >
 > ```json
 > {
->   "id": 00,
+>   "id": "number",
 >   "name": "string",
 >   "description": "string",
 >   "category": "string",
->   "price": 00,
+>   "price": "number",
 >   "image": "string",
 >   "created_at": "YYYY-MM-DD HH:MM:SS",
 >   "updated_at": "YYYY-MM-DD HH:MM:SS",
@@ -357,11 +357,11 @@ Faça uma requisição ao _endpoint_ `/products`, utilizando o método `POST`, e
 >
 > ```json
 > {
->   "id": 00,
+>   "id": "number",
 >   "name": "string",
 >   "description": "string",
 >   "category": "string",
->   "price": 00,
+>   "price": "number",
 >   "ingredients": ["string", "string", "string"]
 > }
 > ```
@@ -399,10 +399,10 @@ Faça uma requisição ao _endpoint_ `/orders`, utilizando o método `GET`.
 > ```json
 > [
 >   {
->     "id": 00,
+>     "id": "number",
 >     "status": "string",
 >     "description": "string",
->     "user_id": 00,
+>     "user_id": "number",
 >     "created_at": "YYYY-MM-DD HH:MM:SS",
 >     "updated_at": "YYYY-MM-DD HH:MM:SS"
 >   }
@@ -440,7 +440,7 @@ Faça uma requisição ao _endpoint_ `/categories`, utilizando o método `GET`.
 > ```json
 > [
 >   {
->     "id": 00,
+>     "id": "number",
 >     "name": "string"
 >   }
 > ]
@@ -455,16 +455,16 @@ Faça uma requisição ao _endpoint_ `/categories/:id`, utilizando o método `GE
 > ```json
 > [
 >   {
->     "id": 00,
+>     "id": "number",
 >     "name": "string",
->     "total": 00,
+>     "total": "number",
 >     "products": [
 >       {
->         "id": 00,
+>         "id": "number",
 >         "name": "string",
 >         "description": "string",
 >         "category": "string",
->         "price": 00,
+>         "price": "number",
 >         "image": "string",
 >         "created_at": "YYYY-MM-DD HH:MM:SS",
 >         "updated_at": "YYYY-MM-DD HH:MM:SS"
