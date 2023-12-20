@@ -1,7 +1,7 @@
 {
   "name": "food-explorer-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful API in Node.js for an online menu system with user, product, and order management.",
   "main": "./src/server.js",
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
