@@ -8,7 +8,7 @@ class IndexCategoryService {
   async execute() {
     const categories = await this.categoriesRepository.index()
 
-    if (!categories) {
+    if (categories.length === 0) {
       throw new AppError('category/no-categories-registered')
     }
 
