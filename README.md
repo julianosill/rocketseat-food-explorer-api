@@ -39,6 +39,7 @@ A API possui três níveis de autorização: visitante, cliente e administrador.
 - Todas as permissões acima
 - Gerenciar produtos (adicionar, alterar e excluir)
 - Gerenciar pedidos (visualizar e alterar status)
+- Gerenciar categorias (criar, alterar e visualizar)
 ```
 
 ---
@@ -53,6 +54,8 @@ O _live preview_ desta API está hospedada no serviço [Render](https://render.c
 
 _Obs.: Está com autorização apenas para requisições feitas através do domínio da aplicação Front-End deste projeto, que pode ser conferida [neste link](https://github.com/julianosill/rocketseat-food-explorer-web)._
 
+---
+
 ## 📚 Índice
 
 - [Funções](#funções)
@@ -60,6 +63,7 @@ _Obs.: Está com autorização apenas para requisições feitas através do dom�
   - [Incluindo variáveis de ambiente](#incluindo-variáveis-de-ambiente)
   - [Executando localmente](#executando-localmente)
   - [Criando usuário administrador](#criando-usuário-administrador)
+  - [Banco de dados de exemplo](#banco-de-dados-de-exemplo)
 - [API _endpoints_](#api-endpoints)
 - [Requisições](#requisições)
   - **Usuários**
@@ -159,10 +163,16 @@ AUTH_SECRET=chavesecreta
 
 ### Executando localmente
 
-Execute a aplicação localmente com o seguinte comando:
+Execute a migração para realizar a criação do banco de dados e as tabelas necessárias com o comando:
 
 ```bash
-npm run server
+npm run migrate
+```
+
+Em seguida, inicie o servidor local com o seguinte comando:
+
+```bash
+npm start
 ```
 
 O comando irá criar o banco de dados e executará as migrações. Em seguida, iniciará o servidor local exibindo a seguinte mensagem: `Server is running on port XXXX`
@@ -172,6 +182,24 @@ A API estará disponível na porta estabelecida pela variável de ambiente ou `3
 ### Criando usuário administrador
 
 Ao registrar um usuário, se este for o primeiro, será automaticamente definido como um perfil de Administrador. Todos os usuários posteriores serão registrados como Cliente.
+
+### Banco de dados de exemplo
+
+Este repositório conta com um banco de dados de exemplo contendo duas contas e alguns produtos cadastrados.
+
+O arquivo encontra-se no caminho `./src/database/sample.db`. Caso queira utilizá-lo, inclua o nome `sample.db` na variável de ambiente `DB_NAME`.
+
+#### Dados de usuários
+
+```bash
+# Admin
+e-mail: admin@foodexplorer.com.br
+senha: 123456
+
+# Cliente
+e-mail: cliente@foodexplorer.com.br
+senha: 123456
+```
 
 ---
 
