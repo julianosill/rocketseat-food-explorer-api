@@ -11,7 +11,7 @@ const ordersRoutes = require('./ordersRoutes')
 
 const routes = Router()
 
-routes.use('/', (request, response) => {
+routes.get('/', (request, response) => {
   return response.status(201).json({
     name: 'food-explorer-api',
     version: '1.0.0',
