@@ -50,7 +50,9 @@ Confira a aplicação Front-End desenvolvida para esta API [clicando aqui](https
 
 ## _Live preview_
 
-O _live preview_ desta API está hospedada no serviço [Render](https://render.com).
+O _live preview_ desta API está hospedada no serviço [Render](https://render.com), em seu plano gratuito.
+
+URL da API: https://food-explorer-api-ghvq.onrender.com
 
 _Obs.: Está com autorização apenas para requisições feitas através do domínio da aplicação Front-End deste projeto, que pode ser conferida [neste link](https://github.com/julianosill/rocketseat-food-explorer-web)._
 
