@@ -4,9 +4,9 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
+    "start": "knex migrate:latest && pm2-runtime start ecosystem.config.js --env production",
     "dev": "node --watch ./src/server.js",
-    "migrate": "knex migrate:latest",
-    "server": "knex migrate:latest && node --watch ./src/server.js"
+    "migrate": "knex migrate:latest"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.0.1",
     "multer": "^1.4.5-lts.1",
+    "pm2": "^5.3.0",
     "sqlite3": "^5.1.6"
   }
 }
