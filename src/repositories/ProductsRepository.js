@@ -40,7 +40,7 @@ class ProductsRepository {
           queryBuilder.whereIn('ingredients.name', ingredients)
         }
       })
-      .select(
+      .select([
         'products.id',
         'products.name',
         'products.description',
@@ -48,10 +48,9 @@ class ProductsRepository {
         'products.price',
         'products.image',
         'products.created_at',
-        'products.updated_at'
-      )
-      .groupBy('products.id')
-      .orderBy('products.name')
+        'products.updated_at',
+      ])
+      .orderBy('products.id')
   }
 
   async create(product) {
