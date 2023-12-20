@@ -50,6 +50,7 @@ class ProductsRepository {
         'products.created_at',
         'products.updated_at',
       ])
+      .groupBy('products.id')
       .orderBy('products.id')
   }
 
