@@ -41,11 +41,17 @@ A API possui três níveis de autorização: visitante, cliente e administrador.
 - Gerenciar pedidos (visualizar e alterar status)
 ```
 
+---
+
+Confira a aplicação Front-End desenvolvida para esta API [clicando aqui](https://github.com/julianosill/rocketseat-food-explorer-web).
+
+---
+
 ## _Live preview_
 
 O _live preview_ desta API está hospedada no serviço [Render](https://render.com).
 
-_Obs.: Está com autorização apenas para requisições feitas através do domínio da aplicação Front-End deste projeto, que pode ser conferida [neste link](https://github.com/julianosill/rocketseat-food-explorer)._
+_Obs.: Está com autorização apenas para requisições feitas através do domínio da aplicação Front-End deste projeto, que pode ser conferida [neste link](https://github.com/julianosill/rocketseat-food-explorer-web)._
 
 ## 📚 Índice
 
